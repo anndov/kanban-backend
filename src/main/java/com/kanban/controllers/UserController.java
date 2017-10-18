@@ -1,32 +1,35 @@
 package com.kanban.controllers;
 
-import com.kanban.domain.sec.User;
-import com.kanban.services.sec.UserService;
+import com.kanban.model.security.User;
+import com.kanban.security.JwtUser;
+import com.kanban.security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.Collection;
-import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    /*@RequestMapping(method = RequestMethod.GET)
+   /* @RequestMapping(method = RequestMethod.GET)
     Collection<User> findAll() {
         return userService.findAll();
+    }*/
+
+    /*@RequestMapping(value = "/da")
+    public ResponseEntity<?> da() {
+        return ResponseEntity.ok(userService.findAll().get(0));
     }*/
 
     @RequestMapping(method = RequestMethod.GET)

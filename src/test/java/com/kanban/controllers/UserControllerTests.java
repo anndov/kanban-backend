@@ -1,7 +1,7 @@
 package com.kanban.controllers;
 
-import com.kanban.domain.sec.User;
-import com.kanban.services.sec.UserService;
+import com.kanban.model.security.User;
+import com.kanban.security.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,9 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
-
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -59,8 +57,8 @@ public class UserControllerTests {
     public void setup() {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
         userService.deleteAllInBatch();
-        this.userList.add(userService.save(new User("david", new BCryptPasswordEncoder().encode("12345"), "david.har@gmail.com", 1, "", "", "")));
-        this.userList.add(userService.save(new User("foo", new BCryptPasswordEncoder().encode("12345"), "foo.har@gmail.com", 1, "", "", "")));
+        this.userList.add(userService.save(new User("david", new BCryptPasswordEncoder().encode("12345"), "david.har@gmail.com", true)));
+        this.userList.add(userService.save(new User("gonzo", new BCryptPasswordEncoder().encode("12345"), "foo.har@gmail.com", true)));
     }
 
     @Test
@@ -74,12 +72,12 @@ public class UserControllerTests {
     public void findByUsernameTest() throws Exception {
         mockMvc.perform(get("/users/david"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userName", is("david")));
+                .andExpect(jsonPath("$.username", is("david")));
     }
 
     @Test
     public void saveTest() throws Exception {
-        String userJson = json(new User("kermit", new BCryptPasswordEncoder().encode("12345"), "foo.har@gmail.com", 1, "", "", ""));
+        String userJson = json(new User("kermit", new BCryptPasswordEncoder().encode("12345"), "foo.har@gmail.com", true));
         this.mockMvc.perform(post("/users")
                 .contentType(contentType)
                 .content(userJson))
@@ -89,8 +87,8 @@ public class UserControllerTests {
 
     @Test
     public void updateTest() throws Exception {
-        User user = new User("yaaa", new BCryptPasswordEncoder().encode("12345"), "david.har@gmail.com", 1, "", "", "");
-        user.setUserid(this.userList.get(0).getUserid());
+        User user = new User("yaaa", new BCryptPasswordEncoder().encode("12345"), "david.har@gmail.com", true);
+        user.setId(this.userList.get(0).getId());
         String userJson = json(user);
         mockMvc.perform(put("/users")
                 .contentType(contentType)
@@ -100,7 +98,7 @@ public class UserControllerTests {
 
     @Test
     public void deleteTest() throws Exception {
-        this.mockMvc.perform(delete("/users/" + this.userList.get(0).getUserid()))
+        this.mockMvc.perform(delete("/users/" + this.userList.get(0).getId()))
                 .andExpect(status().isOk());
     }
 

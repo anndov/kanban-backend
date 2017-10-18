@@ -1,7 +1,7 @@
 package com.kanban.components;
 
-import com.kanban.domain.enums.Roles;
-import com.kanban.services.sec.CustomUserDetailsService;
+import com.kanban.model.security.User;
+import com.kanban.security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -11,10 +11,10 @@ import java.util.*;
 @Component
 public class Loader implements ApplicationRunner {
 
-    private CustomUserDetailsService userService;
+    private UserService userService;
 
     @Autowired
-    public Loader(CustomUserDetailsService userService) {
+    public Loader(UserService userService) {
         this.userService = userService;
     }
 
@@ -24,26 +24,8 @@ public class Loader implements ApplicationRunner {
     }
 
     private void createDefaultUsers() {
-        List<String> userRoles = new ArrayList<String>() {
-        };
-        userRoles.add(Roles.ROLE_USER.toString());
+        User admin = userService.findByUsername("admin") == null ? userService.save(new User("admin", "admin", "email@eamil.com", true)) : userService.findByUsername("admin");
 
-        if (!userService.userExists("user")) {
-            userService.createUser("user", "user@user.com", "12345", userRoles, null, null);
-        }
-
-        List<String> adminRoles = new ArrayList<String>() {
-        };
-        adminRoles.add(Roles.ROLE_USER.toString());
-        adminRoles.add(Roles.ROLE_ADMIN.toString());
-
-        if (!userService.userExists("admin")) {
-            userService.createUser("admin", "admin@admin.com", "12345", adminRoles, null, null);
-        }
-
-        /*if (!userService.userExists("david")) {
-            userService.createUser("david", "admin@admin.com", "12345", adminRoles, null, null);
-        }*/
     }
 
 }
