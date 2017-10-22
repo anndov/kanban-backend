@@ -41,6 +41,7 @@ public class UserService {
 
     public User save(User user) {
         Set<Authority> authorities = new HashSet<Authority>();
+        if(user.getAuthorities() != null)
         user.getAuthorities().forEach(authority -> {
             authorities.add(authorityService.findByName(authority.getName()).size() == 0 ?
                     authorityService.save(new Authority(authority.getName())) : authorityService.findByName(authority.getName()).get(0));
@@ -53,6 +54,7 @@ public class UserService {
 
     public User update(User user) {
         Set<Authority> authorities = new HashSet<Authority>();
+        if(user.getAuthorities() != null)
         user.getAuthorities().forEach(authority -> {
             authorities.add(authorityService.findByName(authority.getName()).size() == 0 ?
                     authorityService.save(new Authority(authority.getName())) : authorityService.findByName(authority.getName()).get(0));
