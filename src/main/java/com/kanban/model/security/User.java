@@ -1,6 +1,8 @@
 package com.kanban.model.security;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,54 +10,59 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "users")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "USERNAME", length = 50, unique = true)
+    @Column(name = "username", length = 50, unique = true)
     @NotNull
     private String username;
 
-    @Column(name = "PASSWORD", length = 100)
+    @Column(name = "password", length = 100)
     @NotNull
     private String password;
 
-    @Column(name = "FIRSTNAME", length = 50)
+    @Column(name = "firstname", length = 50)
     private String firstname;
 
-    @Column(name = "LASTNAME", length = 50)
+    @Column(name = "lastname", length = 50)
     private String lastname;
 
-    @Column(name = "EMAIL", length = 50)
+    @Column(name = "email", length = 50)
     private String email;
 
-    @Column(name = "ENABLED")
+    @Column(name = "enabled")
     @NotNull
     private Boolean enabled;
 
     @JsonIgnore
-    @Column(name = "LASTPASSWORDRESETDATE")
+    @Column(name = "lastPasswordResetDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastPasswordResetDate;
 
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "USER_AUTHORITY",
-            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
-    private List<Authority> authorities;
+            name = "user_authority",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_id", referencedColumnName = "id")})
+    private Set<Authority> authorities;
 
     public User() {
+    }
+
+    public User(String username, String password, Boolean enabled) {
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
     }
 
     public User(String username, String password, String email, Boolean enabled) {
@@ -63,6 +70,13 @@ public class User implements Serializable {
         this.password = password;
         this.email = email;
         this.enabled = enabled;
+    }
+
+    public User(String username, String password, Boolean enabled, Set<Authority> authorities) {
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.authorities = authorities;
     }
 
     public Long getId() {
@@ -121,11 +135,11 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
-    public List<Authority> getAuthorities() {
+    public Set<Authority> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(List<Authority> authorities) {
+    public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
     }
 

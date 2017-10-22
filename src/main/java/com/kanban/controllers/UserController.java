@@ -27,11 +27,6 @@ public class UserController {
         return userService.findAll();
     }*/
 
-    /*@RequestMapping(value = "/da")
-    public ResponseEntity<?> da() {
-        return ResponseEntity.ok(userService.findAll().get(0));
-    }*/
-
     @RequestMapping(method = RequestMethod.GET)
     Page findAll(Pageable pageable) {
         return userService.findAll(pageable);
@@ -52,7 +47,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.PUT)
     ResponseEntity<?> update(@RequestBody User user) {
-        User entity = userService.save(user);
+        User entity = userService.update(user);
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity<>(entity, responseHeaders, HttpStatus.CREATED);

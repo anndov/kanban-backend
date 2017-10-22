@@ -1,12 +1,18 @@
 package com.kanban.model.security;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "AUTHORITY")
-public class Authority {
+public class Authority implements Serializable {
 
     @Id
     @Column(name = "ID")
@@ -19,8 +25,16 @@ public class Authority {
     @Enumerated(EnumType.STRING)
     private AuthorityName name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY)
-    private List<User> users;
+    private Set<User> users;
+
+    public Authority(AuthorityName name) {
+        this.name = name;
+    }
+
+    public Authority() {
+    }
 
     public Long getId() {
         return id;
@@ -38,11 +52,11 @@ public class Authority {
         this.name = name;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 }
