@@ -1,13 +1,10 @@
-package com.kanban.model.security;
+package com.kanban.security.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 @Entity

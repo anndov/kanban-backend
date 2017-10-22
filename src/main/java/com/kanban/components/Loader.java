@@ -1,9 +1,8 @@
 package com.kanban.components;
 
-import com.kanban.model.security.Authority;
-import com.kanban.model.security.AuthorityName;
-import com.kanban.model.security.User;
-import com.kanban.security.repository.UserRepository;
+import com.kanban.security.model.Authority;
+import com.kanban.security.model.AuthorityName;
+import com.kanban.security.model.User;
 import com.kanban.security.services.AuthorityService;
 import com.kanban.security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +30,8 @@ public class Loader implements ApplicationRunner {
     }
 
     private void createDefaultUsers() {
-//        User admin = userService.findByUsername("admin") == null ? userService.save(new User("admin", "admin", "", true)) : userService.findByUsername("admin");
         User admin;
         Authority authority;
-        /*Set<Authority> authorities = new HashSet<>();
-        authorities.add(authority);*/
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         if (userService.findByUsername("admin") == null)
             admin = new User("admin", "admin", true);
@@ -51,6 +47,7 @@ public class Loader implements ApplicationRunner {
         authorities.add(authorityService.save(authority));
         admin.setAuthorities(authorities);
 
+        admin.setValidated(true);
         userService.save(admin);
     }
 

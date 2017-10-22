@@ -1,7 +1,7 @@
 package com.kanban.security.repository;
 
-import com.kanban.model.security.Authority;
-import com.kanban.model.security.AuthorityName;
+import com.kanban.security.model.Authority;
+import com.kanban.security.model.AuthorityName;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

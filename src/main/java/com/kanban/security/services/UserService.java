@@ -1,12 +1,11 @@
 package com.kanban.security.services;
 
-import com.kanban.model.security.Authority;
-import com.kanban.model.security.User;
+import com.kanban.security.model.Authority;
+import com.kanban.security.model.User;
 import com.kanban.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

@@ -1,15 +1,11 @@
-package com.kanban.model.security;
+package com.kanban.security.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -43,6 +39,9 @@ public class User implements Serializable {
     @Column(name = "enabled")
     @NotNull
     private Boolean enabled;
+
+    @Column(name="validated")
+    private Boolean validated;
 
     @JsonIgnore
     @Column(name = "lastPasswordResetDate")
@@ -149,5 +148,13 @@ public class User implements Serializable {
 
     public void setLastPasswordResetDate(Date lastPasswordResetDate) {
         this.lastPasswordResetDate = lastPasswordResetDate;
+    }
+
+    public Boolean getValidated() {
+        return validated;
+    }
+
+    public void setValidated(Boolean validated) {
+        this.validated = validated;
     }
 }

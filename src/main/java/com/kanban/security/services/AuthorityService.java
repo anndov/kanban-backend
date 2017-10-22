@@ -1,7 +1,7 @@
 package com.kanban.security.services;
 
-import com.kanban.model.security.Authority;
-import com.kanban.model.security.AuthorityName;
+import com.kanban.security.model.Authority;
+import com.kanban.security.model.AuthorityName;
 import com.kanban.security.repository.AuthorityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

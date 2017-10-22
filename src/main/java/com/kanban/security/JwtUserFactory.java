@@ -1,7 +1,7 @@
 package com.kanban.security;
 
-import com.kanban.model.security.Authority;
-import com.kanban.model.security.User;
+import com.kanban.security.model.Authority;
+import com.kanban.security.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.List;

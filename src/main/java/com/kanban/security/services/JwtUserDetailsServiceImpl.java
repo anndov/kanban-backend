@@ -1,6 +1,6 @@
 package com.kanban.security.services;
 
-import com.kanban.model.security.User;
+import com.kanban.security.model.User;
 import com.kanban.security.JwtUserFactory;
 import com.kanban.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

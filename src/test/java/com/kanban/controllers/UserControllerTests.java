@@ -1,6 +1,6 @@
 package com.kanban.controllers;
 
-import com.kanban.model.security.User;
+import com.kanban.security.model.User;
 import com.kanban.security.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
