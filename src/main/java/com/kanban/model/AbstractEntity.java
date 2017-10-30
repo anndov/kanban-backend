@@ -1,5 +1,7 @@
 package com.kanban.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -19,11 +21,16 @@ public abstract class AbstractEntity implements Serializable, Cloneable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @JsonIgnore
     private Date created;
+    @JsonIgnore
     private Date updated;
 
+    @JsonIgnore
     private String createdBy;
+    @JsonIgnore
     private String updatedBy;
+    @JsonIgnore
     private Date updatedDate;
 
     public Long getId() {
@@ -38,6 +45,7 @@ public abstract class AbstractEntity implements Serializable, Cloneable {
         return id != null;
     }
 
+    @JsonIgnore
     @PrePersist
     protected void onCreate() {
         created = new Date();
@@ -52,6 +60,7 @@ public abstract class AbstractEntity implements Serializable, Cloneable {
 //        }
     }
 
+    @JsonIgnore
     @PreUpdate
     protected void onUpdate() {
         updated = new Date();
@@ -63,6 +72,7 @@ public abstract class AbstractEntity implements Serializable, Cloneable {
 //            System.out.println("Not Authentication for update AbstractEntity on DataLoader");
 //        }
     }
+
 
     public Date getUpdatedDate() {
         return updatedDate;
@@ -92,6 +102,7 @@ public abstract class AbstractEntity implements Serializable, Cloneable {
         return created;
     }
 
+    @JsonIgnore
     public String getCreatedFormat() {
         DateFormat sdfFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
         return sdfFormat.format(created);
@@ -105,6 +116,7 @@ public abstract class AbstractEntity implements Serializable, Cloneable {
         return updated;
     }
 
+    @JsonIgnore
     public String getUpdatedFormat() {
         DateFormat sdfFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
         return sdfFormat.format(updated);

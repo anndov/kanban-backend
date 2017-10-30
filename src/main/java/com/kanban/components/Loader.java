@@ -33,10 +33,6 @@ public class Loader implements ApplicationRunner {
         User admin;
         Authority authority;
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        if (userService.findByUsername("admin") == null)
-            admin = new User("admin", "admin", true);
-        else
-            admin = userService.findByUsername("admin");
 
         if (authorityService.findByName(AuthorityName.ROLE_ADMIN).size() == 0)
             authority = new Authority(AuthorityName.ROLE_ADMIN);
@@ -45,10 +41,17 @@ public class Loader implements ApplicationRunner {
 
         Set<Authority> authorities = new HashSet<Authority>();
         authorities.add(authorityService.save(authority));
-        admin.setAuthorities(authorities);
 
-        admin.setValidated(true);
-        userService.save(admin);
+        if (userService.findByUsername("admin") == null) {
+            admin = new User("admin", "admin", true);
+            admin.setAuthorities(authorities);
+            admin.setValidated(true);
+            userService.save(admin);
+        }
+//        else {
+//            admin = userService.findByUsername("admin");
+//        }
+
     }
 
 }
