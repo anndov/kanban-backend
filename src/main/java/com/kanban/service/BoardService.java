@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -22,10 +23,21 @@ public class BoardService {
         Set<BoardColumn> boardColumns = new HashSet<>();
         if(board.getBoardColumns() != null)
         board.getBoardColumns().forEach(boardColumn -> {
-            System.out.println("boardColumn " + boardColumn.getName());
             boardColumns.add(boardColumnService.save(boardColumn));
         });
         board.setBoardColumns(boardColumns);
         return boardRepository.save(board);
+    }
+
+    public void deleteAllInBatch() {
+        boardRepository.deleteAllInBatch();
+    }
+
+    public Board findOne(Long id) {
+        return boardRepository.findOne(id);
+    }
+
+    public List<Board> findByParticipants_Username(String username) {
+        return boardRepository.findByParticipants_Username(username);
     }
 }

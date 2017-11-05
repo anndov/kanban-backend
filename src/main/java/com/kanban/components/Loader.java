@@ -48,6 +48,12 @@ public class Loader implements ApplicationRunner {
             admin.setValidated(true);
             userService.save(admin);
         }
+
+        if (userService.findByUsername("user") == null) {
+            admin = new User("user", "user", true);
+            admin.setValidated(true);
+            userService.save(admin);
+        }
 //        else {
 //            admin = userService.findByUsername("admin");
 //        }

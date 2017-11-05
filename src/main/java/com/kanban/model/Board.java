@@ -2,24 +2,28 @@ package com.kanban.model;
 
 import com.kanban.security.model.User;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Board extends AbstractEntity {
+public class Board {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String name;
 
     @ManyToOne
     private User owner;
 
-    @OneToMany
+    @ManyToMany
     private Set<User> participants;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     private Set<BoardColumn> boardColumns;
 
     public Board() {
@@ -55,5 +59,13 @@ public class Board extends AbstractEntity {
 
     public void setParticipants(Set<User> participants) {
         this.participants = participants;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

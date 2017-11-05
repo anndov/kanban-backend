@@ -23,13 +23,16 @@ public abstract class AbstractEntity implements Serializable, Cloneable {
 
     @JsonIgnore
     private Date created;
+
     @JsonIgnore
     private Date updated;
 
     @JsonIgnore
     private String createdBy;
+
     @JsonIgnore
     private String updatedBy;
+
     @JsonIgnore
     private Date updatedDate;
 
@@ -41,6 +44,7 @@ public abstract class AbstractEntity implements Serializable, Cloneable {
         this.id = id;
     }
 
+    @JsonIgnore
     public boolean isPersistent() {
         return id != null;
     }
@@ -126,6 +130,7 @@ public abstract class AbstractEntity implements Serializable, Cloneable {
         this.updated = updated;
     }
 
+    @JsonIgnore
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -142,6 +147,7 @@ public abstract class AbstractEntity implements Serializable, Cloneable {
         return false;
     }
 
+    @JsonIgnore
     @Override
     public int hashCode() {
         int hash = 5;

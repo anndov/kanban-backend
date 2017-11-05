@@ -1,6 +1,7 @@
 package com.kanban.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kanban.model.Board;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

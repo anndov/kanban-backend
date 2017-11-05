@@ -2,6 +2,7 @@ package com.kanban.controllers;
 
 import com.kanban.security.model.User;
 import com.kanban.security.services.UserService;
+import com.kanban.service.BoardService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,14 @@ public class UserControllerTests extends AbstractControllerTest {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private BoardService boardService;
+
     List<User> userList = new ArrayList<>();
 
     @Before
     public void setup() {
+        boardService.deleteAllInBatch();
         userService.deleteAllInBatch();
         this.userList.add(userService.save(new User("david", new BCryptPasswordEncoder().encode("12345"), "david.har@gmail.com", true)));
         this.userList.add(userService.save(new User("gonzo", new BCryptPasswordEncoder().encode("12345"), "foo.har@gmail.com", true)));
