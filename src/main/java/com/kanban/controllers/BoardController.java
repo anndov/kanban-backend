@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("boards")
+@RequestMapping("rest/boards")
 public class BoardController {
 
     @Autowired
@@ -20,6 +20,14 @@ public class BoardController {
 
     @PostMapping
     ResponseEntity<?> save(@RequestBody  Board board) {
+        Board entity = boardService.save(board);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity<>(entity, responseHeaders, HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    ResponseEntity<?> update(@RequestBody Board board) {
         Board entity = boardService.save(board);
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -37,7 +45,7 @@ public class BoardController {
 
     @GetMapping(value = "/username/{username}")
     ResponseEntity<List<Board>> findByParticipants_Username(@PathVariable String username) {
-        List<Board> boards = boardService.findByParticipants_Username(username);
+        List<Board> boards = boardService.findByParticipants_UsernameLike(username);
         return new ResponseEntity<List<Board>>(boards, HttpStatus.OK);
     }
 }

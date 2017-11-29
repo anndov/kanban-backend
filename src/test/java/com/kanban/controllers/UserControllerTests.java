@@ -35,14 +35,14 @@ public class UserControllerTests extends AbstractControllerTest {
 
     @Test
     public void findAllTest() throws Exception {
-        mockMvc.perform(get("/users"))
+        mockMvc.perform(get("/rest/users"))
                 .andExpect(status().isOk())/*
                 .andExpect(jsonPath("$", hasSize(2)))*/;
     }
 
     @Test
     public void findByUsernameTest() throws Exception {
-        mockMvc.perform(get("/users/david"))
+        mockMvc.perform(get("/rest/users/david"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username", is("david")));
     }
@@ -50,7 +50,7 @@ public class UserControllerTests extends AbstractControllerTest {
     @Test
     public void saveTest() throws Exception {
         String userJson = json(new User("kermit", new BCryptPasswordEncoder().encode("12345"), "foo.har@gmail.com", true));
-        mockMvc.perform(post("/users")
+        mockMvc.perform(post("/rest/users")
                 .contentType(contentType)
                 .content(userJson))
                 .andExpect(status().isCreated())
@@ -62,7 +62,7 @@ public class UserControllerTests extends AbstractControllerTest {
         User user = new User("yaaa", new BCryptPasswordEncoder().encode("12345"), "david.har@gmail.com", true);
         user.setId(this.userList.get(0).getId());
         String userJson = json(user);
-        mockMvc.perform(put("/users")
+        mockMvc.perform(put("/rest/users")
                 .contentType(contentType)
                 .content(userJson))
                 .andExpect(status().isCreated());
@@ -70,7 +70,7 @@ public class UserControllerTests extends AbstractControllerTest {
 
     @Test
     public void deleteTest() throws Exception {
-        this.mockMvc.perform(delete("/users/" + this.userList.get(0).getId()))
-                .andExpect(status().isOk());
+        this.mockMvc.perform(delete("/rest/users/" + this.userList.get(0).getId()))
+                .andExpect(status().isNoContent());
     }
 }

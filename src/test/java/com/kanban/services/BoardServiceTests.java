@@ -50,4 +50,14 @@ public class BoardServiceTests {
     public void findAllByParticipantId() {
         assertThat(1).isEqualTo(boardService.findByParticipants_Username(u.getUsername()).size());
     }
+
+    @Test
+    public void findAllByParticipantUserNameLike() {
+        assertThat(1).isEqualTo(boardService.findByParticipants_UsernameLike(u.getUsername()).size());
+    }
+
+    @Test
+    public void findUsersByBoardId() {
+        assertThat(1).isEqualTo(boardService.findUsersByBoardId(b.getId()).size());
+    }
 }

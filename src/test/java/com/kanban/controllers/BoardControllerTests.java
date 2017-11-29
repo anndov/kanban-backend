@@ -9,18 +9,12 @@ import com.kanban.service.BoardService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import java.util.*;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
-/**
- * Created by david on 29-Oct-17.
- */
 public class BoardControllerTests extends AbstractControllerTest {
 
     private User user;
@@ -49,6 +43,18 @@ public class BoardControllerTests extends AbstractControllerTest {
     }
 
     @Test
+    public void updateTest() throws Exception {
+        this.b.setName("My Board Updated");
+        String boardJson = new Gson().toJson(this.b);
+        mockMvc.perform(put("/rest/boards")
+                .contentType(contentType)
+                .content(boardJson))
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.name", is("My Board Updated")));
+    }
+
+    @Test
     public void saveTest() throws Exception {
         Board board = new Board();
         board.setName("My board");
@@ -60,7 +66,7 @@ public class BoardControllerTests extends AbstractControllerTest {
 
         String boardJson = new Gson().toJson(board);
 
-        mockMvc.perform(post("/boards")
+        mockMvc.perform(post("/rest/boards")
                 .contentType(contentType)
                 .content(boardJson))
                 .andExpect(status().isCreated())
@@ -69,17 +75,29 @@ public class BoardControllerTests extends AbstractControllerTest {
 
     @Test
     public void findByIdTest() throws Exception {
-        mockMvc.perform(get("/boards/" + b.getId()))
+        mockMvc.perform(get("/rest/boards/" + b.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(b.getName())));
 
-        mockMvc.perform(get("/boards/" + "13213123132"))
+        mockMvc.perform(get("/rest/boards/" + "13213123132"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void findByParticipants_UsernameTest() throws Exception {
-        mockMvc.perform(get("/boards/username/" + user.getUsername()))
+        mockMvc.perform(get("/rest/boards/username/" + user.getUsername()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void findUserByBoardId() throws Exception {
+        mockMvc.perform(get("/rest/users/board-id/" + b.getId()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void findUserByBoardIdAndUsername() throws Exception {
+        mockMvc.perform(get("/rest/users/username/" + user.getUsername() + "/board-id/" + b.getId()))
                 .andExpect(status().isOk());
     }
 }

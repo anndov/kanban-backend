@@ -3,6 +3,7 @@ package com.kanban.service;
 import com.kanban.model.Board;
 import com.kanban.model.BoardColumn;
 import com.kanban.repository.BoardRepository;
+import com.kanban.security.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,4 +41,13 @@ public class BoardService {
     public List<Board> findByParticipants_Username(String username) {
         return boardRepository.findByParticipants_Username(username);
     }
+
+    public List<Board> findByParticipants_UsernameLike(String username) {
+        return boardRepository.findByParticipants_UsernameLike(username);
+    }
+
+    public List<User> findUsersByBoardId(Long id) {
+        return boardRepository.findUsersByBoardId(id);
+    }
+
 }

@@ -56,6 +56,12 @@ public class User implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "authority_id", referencedColumnName = "id")})
     private Set<Authority> authorities;
 
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "board_participants", joinColumns = @JoinColumn(name = "participants_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "board_id", referencedColumnName = "id"))
+    private Set<Board> boards;
+
     public User() {
     }
 
@@ -157,5 +163,13 @@ public class User implements Serializable {
 
     public void setValidated(Boolean validated) {
         this.validated = validated;
+    }
+
+    public Set<Board> getBoards() {
+        return boards;
+    }
+
+    public void setBoards(Set<Board> boards) {
+        this.boards = boards;
     }
 }

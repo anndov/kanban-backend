@@ -21,6 +21,8 @@ public class Board {
     private User owner;
 
     @ManyToMany
+    @JoinTable(name = "board_participants", joinColumns = @JoinColumn(name = "board_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "participants_id", referencedColumnName = "id"))
     private Set<User> participants;
 
     @OneToMany

@@ -70,4 +70,8 @@ public class UserService {
         userRepository.deleteAllInBatch();
     }
 
+    public List<User> findUsersByUsernameLikeAndBoardId(String username, Long id) {
+        return userRepository.findUsersByUsernameLikeAndBoardId(username + "%", id);
+    }
+
 }
