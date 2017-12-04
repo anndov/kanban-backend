@@ -138,7 +138,7 @@ public class BoardTaskControllerTests {
 
     @Test
     public void deleteTask() throws Exception {
-        mockMvc.perform(delete("/rest/tasks/id/" + task.getId()))
-                .andExpect(status().isOk());
+        mockMvc.perform(delete("/rest/tasks/" + task.getId()))
+                .andExpect(status().isNoContent());
     }
 }

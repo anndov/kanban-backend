@@ -35,9 +35,9 @@ public class BoardTaskController {
         return new ResponseEntity<BoardTask>(boardTaskService.save(boardTask), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/id/{id}")
+    @DeleteMapping(value = "/{id}")
     ResponseEntity<?> deleteTask(@PathVariable Long id) {
         boardTaskService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
