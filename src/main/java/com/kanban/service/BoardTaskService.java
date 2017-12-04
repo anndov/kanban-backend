@@ -1,5 +1,6 @@
 package com.kanban.service;
 
+import com.kanban.model.Board;
 import com.kanban.model.BoardTask;
 import com.kanban.repository.BoardTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,19 @@ public class BoardTaskService {
         boardTaskRepository.delete(id);
     }
 
-    public Page findAllByBoardId(Long boardColumnId) {
-        return boardTaskRepository.findAllByBoardIdAndIsDeleted(boardColumnId, false, new PageRequest(1, 100));
+    public Page findByBoardColumnIdAndDeletedFalse(Long boardColumnId) {
+        return boardTaskRepository.findByBoardColumnIdAndDeletedFalse(boardColumnId, new PageRequest(0, 100));
+    }
+
+    public Page findByBoardIdAndDeletedFalse(Long boardId) {
+        return boardTaskRepository.findByBoardIdAndDeletedFalse(boardId, new PageRequest(0, 500));
+    }
+
+    public List<BoardTask> findByBoardColumnId(Long boardColumnId) {
+        return boardTaskRepository.findByBoardColumnIdAndDeletedFalse(boardColumnId);
+    }
+
+    public Page findAll() {
+        return boardTaskRepository.findAll(new PageRequest(1, 100));
     }
 }

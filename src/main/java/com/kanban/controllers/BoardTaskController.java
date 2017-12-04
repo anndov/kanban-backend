@@ -22,7 +22,12 @@ public class BoardTaskController {
 
     @GetMapping(value = "/board_column_id/{boardColumnId}")
     Page findTasksByBoardColumnId(@PathVariable Long boardColumnId) {
-        return boardTaskService.findAllByBoardId(boardColumnId);
+        return boardTaskService.findByBoardColumnIdAndDeletedFalse(boardColumnId);
+    }
+
+    @GetMapping(value = "/board_id/{boardId}")
+    Page findTasksByBoardId(@PathVariable Long boardId) {
+        return boardTaskService.findByBoardIdAndDeletedFalse(boardId);
     }
 
     @PutMapping

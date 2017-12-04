@@ -16,7 +16,7 @@ public class BoardTask extends AbstractEntity {
     private String owner;
     private String followUpDate;
     private String processInstanceId;
-    private boolean isDeleted = false;
+    private boolean deleted = false;
     private Date createDate;
     private Date updateDate;
 
@@ -113,12 +113,13 @@ public class BoardTask extends AbstractEntity {
         this.processInstanceId = processInstanceId;
     }
 
+
     public boolean isDeleted() {
-        return isDeleted;
+        return deleted;
     }
 
     public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+        this.deleted = deleted;
     }
 
     public Date getCreateDate() {

@@ -122,6 +122,13 @@ public class BoardTaskControllerTests {
     }
 
     @Test
+    public void findTasksByBoardId() throws Exception {
+        mockMvc.perform(get("/rest/tasks/board_id/" + task.getBoardId()))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
     public void updateTask() throws Exception {
         mockMvc.perform(put("/rest/tasks")
                 .content(objectMapper.writeValueAsString(task))

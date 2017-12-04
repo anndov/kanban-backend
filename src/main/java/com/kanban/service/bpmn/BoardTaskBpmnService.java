@@ -19,9 +19,6 @@ public class BoardTaskBpmnService {
     private RuntimeService runtimeService;
 
     @Autowired
-    private BoardColumnService boardColumnService;
-
-    @Autowired
     private TaskService taskService;
 
     public BoardTask addTask(BoardTask boardTask) {
