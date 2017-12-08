@@ -20,19 +20,19 @@ public class BoardTaskController {
         return new ResponseEntity<BoardTask>(boardTaskService.save(boardTask), HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/board_column_id/{boardColumnId}")
+    @GetMapping(value = "/board-column-id/{boardColumnId}")
     Page findTasksByBoardColumnId(@PathVariable Long boardColumnId) {
         return boardTaskService.findByBoardColumnIdAndDeletedFalse(boardColumnId);
     }
 
-    @GetMapping(value = "/board_id/{boardId}")
+    @GetMapping(value = "/board-id/{boardId}")
     Page findTasksByBoardId(@PathVariable Long boardId) {
         return boardTaskService.findByBoardIdAndDeletedFalse(boardId);
     }
 
     @PutMapping
     ResponseEntity<?> updateTask(@RequestBody BoardTask boardTask) {
-        return new ResponseEntity<BoardTask>(boardTaskService.save(boardTask), HttpStatus.OK);
+        return new ResponseEntity<BoardTask>(boardTaskService.save(boardTask), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")

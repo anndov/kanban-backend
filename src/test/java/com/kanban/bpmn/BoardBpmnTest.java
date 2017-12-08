@@ -53,5 +53,4 @@ public class BoardBpmnTest extends AbstractProcessEngineRuleTest {
         assertThat(processInstance).isEnded();
     }
 
-
 }

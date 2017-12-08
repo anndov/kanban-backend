@@ -1,5 +1,9 @@
 package com.kanban.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.kanban.utils.CustomerDateAndTimeDeserialize;
+
 import javax.persistence.Entity;
 import java.util.Date;
 
@@ -20,6 +24,8 @@ public class BoardTask extends AbstractEntity {
     private Date createDate;
     private Date updateDate;
 
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonDeserialize(using=CustomerDateAndTimeDeserialize.class)
     private Date dueDate;
 
     public String getColor() {
