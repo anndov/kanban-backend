@@ -15,6 +15,3 @@ camunda:
     metrics:
       enabled: false
       db-reporter-activate: false
-
-
-#camunda.bpm.auto-deployment-enabled: false

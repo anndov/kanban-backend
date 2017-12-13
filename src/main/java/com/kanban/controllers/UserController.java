@@ -59,8 +59,13 @@ public class UserController {
         return new ResponseEntity<>(boardService.findUsersByBoardId(boardId), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/username/{username}/board-id/{boardId}")
+    /*@GetMapping(value = "/username/{username}/board-id/{boardId}")
     ResponseEntity<?> findUsersByBoardId(@PathVariable String username, @PathVariable Long boardId) {
         return new ResponseEntity<>(userService.findUsersByUsernameLikeAndBoardId(username, boardId), HttpStatus.OK);
+    }*/
+
+    @GetMapping(value = "/username/{username}/board-id/{boardId}")
+    ResponseEntity<?> findUsersByUsernameAndBoardId(@PathVariable String username, @PathVariable Long boardId) {
+        return new ResponseEntity<>(userService.findUsersByUsernameLikeAndBoardIdAndEnabledAndValidated(username, boardId), HttpStatus.OK);
     }
 }

@@ -46,7 +46,8 @@ public class UserService {
                     authorityService.save(new Authority(authority.getName())) : authorityService.findByName(authority.getName()).get(0));
         });
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
+        if (user.getPassword() != null)
+            user.setPassword(encoder.encode(user.getPassword()));
         user.setAuthorities(authorities);
         return userRepository.save(user);
     }
@@ -72,6 +73,14 @@ public class UserService {
 
     public List<User> findUsersByUsernameLikeAndBoardId(String username, Long id) {
         return userRepository.findUsersByUsernameLikeAndBoardId(username + "%", id);
+    }
+
+    public List<User> findUsersByUsernameLikeAndBoardIdAndEnabledAndValidated(String username, Long id) {
+        return userRepository.findUsersByUsernameLikeAndBoardIdAndEnabledAndValidated(username + "%", id);
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
 }

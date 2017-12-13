@@ -21,11 +21,11 @@ public class User implements Serializable {
     private Long id;
 
     @Column(name = "username", length = 50, unique = true)
-    @NotNull
+//    @NotNull
     private String username;
 
     @Column(name = "password", length = 100)
-    @NotNull
+//    @NotNull
     private String password;
 
     @Column(name = "firstname", length = 50)
@@ -34,7 +34,7 @@ public class User implements Serializable {
     @Column(name = "lastname", length = 50)
     private String lastname;
 
-    @Column(name = "email", length = 50)
+    @Column(name = "email", length = 50, unique = true)
     private String email;
 
     @Column(name = "enabled")
