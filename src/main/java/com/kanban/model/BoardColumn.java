@@ -19,6 +19,10 @@ public class BoardColumn {
 
     private Integer columnOrder;
 
+    private Integer max;
+
+    private Integer current = 0;
+
     public BoardColumn(String name, Integer columnOrder) {
         this.name = name;
         this.columnOrder = columnOrder;
@@ -57,5 +61,21 @@ public class BoardColumn {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getMax() {
+        return max;
+    }
+
+    public void setMax(Integer max) {
+        this.max = max;
+    }
+
+    public Integer getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Integer current) {
+        this.current = current;
     }
 }

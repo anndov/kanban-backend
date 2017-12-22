@@ -1,6 +1,8 @@
 package com.kanban.controllers;
 
 import com.google.gson.Gson;
+import com.kanban.model.request.PasswordChangeRequest;
+import com.kanban.model.request.ProfileUpdateRequest;
 import com.kanban.security.model.User;
 import com.kanban.security.services.UserService;
 import com.kanban.service.BoardService;
@@ -29,10 +31,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -129,6 +128,37 @@ public class UserControllerTests {
 
         this.mockMvc.perform(get("/rest/users/username/" + "anystring" + "/board-id/" + 111L))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void update_profile_test() throws Exception {
+        ProfileUpdateRequest user = new ProfileUpdateRequest();
+        user.setFirstName("faa");
+        user.setLastName("laa");
+
+        User userUpdated = new User();
+        userUpdated.setFirstname("faa-userUpdated");
+        userUpdated.setLastname("laa-userUpdated");
+        Mockito.when(userService.profileUpdate(anyLong(), anyString(), anyString())).thenReturn(userUpdated);
+
+        this.mockMvc.perform(patch("/rest/users/update-profile/" + 11L)
+                .content(new Gson().toJson(user))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void change_pass_test() throws Exception {
+        PasswordChangeRequest user = new PasswordChangeRequest();
+        user.setNewPassword("faa");
+        user.setOldPassword("laa");
+
+        Mockito.when(userService.changePassword(anyLong(), anyString(), anyString())).thenReturn(true);
+
+        this.mockMvc.perform(patch("/rest/users/password-change/" + 11L)
+                .content(new Gson().toJson(user))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated());
     }
 
 }

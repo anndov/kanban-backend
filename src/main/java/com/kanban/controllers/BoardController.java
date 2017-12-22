@@ -48,4 +48,10 @@ public class BoardController {
         List<Board> boards = boardService.findByParticipants_UsernameLike(username);
         return new ResponseEntity<List<Board>>(boards, HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "{id}")
+    ResponseEntity<?> delete(@PathVariable Long id) {
+        boardService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

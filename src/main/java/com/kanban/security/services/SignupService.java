@@ -24,8 +24,13 @@ public class SignupService {
     private JavaMailSender mailSender;
 
     public void signup(SignupRequest signupRequest) {
-        User user = new User(signupRequest.getUsername(), signupRequest.getPassword(), signupRequest.getEmail(), false);
-        user = userService.findByUsername(user.getUsername()) == null ? userService.save(user) : userService.findByUsername(user.getUsername());
+        User user = userService.findByEmail(signupRequest.getEmail());
+        if ( user == null)
+            user = new User(signupRequest.getUsername(), signupRequest.getPassword(), signupRequest.getEmail(), false);
+
+        user.setUsername(signupRequest.getUsername());
+        user.setPassword(signupRequest.getPassword());
+        userService.save(user);
 
         VerificationToken verificationToken = verificationTokenRepository.findByUser(user) == null ? new VerificationToken() : verificationTokenRepository.findByUser(user);
         verificationToken.setUser(user);

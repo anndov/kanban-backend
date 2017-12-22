@@ -1,6 +1,7 @@
 package com.kanban.repository;
 
 import com.kanban.model.Board;
+import com.kanban.model.BoardColumn;
 import com.kanban.security.model.User;
 import com.kanban.security.repository.UserRepository;
 import com.kanban.security.services.UserService;
@@ -56,5 +57,26 @@ public class BoardRepositoryTests {
         User deleted = userRepository.findUsersByUsernameLikeAndBoardIdAndEnabledAndValidated(user.getUsername(), board.getId()).get(0);
         assertThat(deleted).isEqualTo(null);*/
 
+    }
+
+    @Test
+    public void delete_board() {
+        User user = new User();
+        user.setUsername("username");
+        user.setEnabled(true);
+        user.setValidated(true);
+        entityManager.persist(user);
+        entityManager.flush();
+        BoardColumn boardColumn = new BoardColumn();
+        boardColumn.setName("Some Name");
+        entityManager.persist(boardColumn);
+        entityManager.flush();
+        Board board = new Board();
+        board.setParticipants(Collections.singleton(user));
+        board.setBoardColumns(Collections.singleton(boardColumn));
+        entityManager.persist(board);
+        entityManager.flush();
+
+        boardRepository.delete(board.getId());
     }
 }

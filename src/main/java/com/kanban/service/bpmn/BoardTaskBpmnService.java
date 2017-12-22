@@ -3,9 +3,9 @@ package com.kanban.service.bpmn;
 import com.kanban.model.BoardTask;
 import com.kanban.model.BoardTaskColumns;
 import com.kanban.service.BoardColumnService;
-import org.camunda.bpm.engine.RuntimeService;
+/*import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
-import org.camunda.bpm.engine.task.Task;
+import org.camunda.bpm.engine.task.Task;*/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class BoardTaskBpmnService {
 
-    @Autowired
+    /*@Autowired
     private RuntimeService runtimeService;
 
     @Autowired
@@ -110,5 +110,5 @@ public class BoardTaskBpmnService {
 
     public void completeTask(String id) {
         taskService.complete(id);
-    }
+    }*/
 }

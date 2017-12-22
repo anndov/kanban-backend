@@ -50,4 +50,8 @@ public class BoardService {
         return boardRepository.findUsersByBoardId(id);
     }
 
+    public void delete(Long id) {
+        boardRepository.delete(id);
+    }
+
 }

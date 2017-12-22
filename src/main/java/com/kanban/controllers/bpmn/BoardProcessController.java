@@ -1,4 +1,4 @@
-package com.kanban.controllers;
+package com.kanban.controllers.bpmn;
 
 import com.kanban.service.bpmn.BoardTaskBpmnService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/rest/process-instance")
 public class BoardProcessController {
 
-    @Autowired
+    /*@Autowired
     private BoardTaskBpmnService boardTaskBpmnService;
 
     @DeleteMapping(value = "/{id}")
     ResponseEntity<?> delete(@PathVariable String id) {
         boardTaskBpmnService.deleteTask(id);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
+    }*/
 }

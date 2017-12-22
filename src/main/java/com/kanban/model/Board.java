@@ -25,7 +25,7 @@ public class Board {
             inverseJoinColumns = @JoinColumn(name = "participants_id", referencedColumnName = "id"))
     private Set<User> participants;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     private Set<BoardColumn> boardColumns;
 
     public Board() {

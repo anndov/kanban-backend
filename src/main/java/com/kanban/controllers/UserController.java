@@ -1,5 +1,7 @@
 package com.kanban.controllers;
 
+import com.kanban.model.request.PasswordChangeRequest;
+import com.kanban.model.request.ProfileUpdateRequest;
 import com.kanban.security.model.User;
 import com.kanban.security.services.UserService;
 import com.kanban.service.BoardService;
@@ -67,5 +69,19 @@ public class UserController {
     @GetMapping(value = "/username/{username}/board-id/{boardId}")
     ResponseEntity<?> findUsersByUsernameAndBoardId(@PathVariable String username, @PathVariable Long boardId) {
         return new ResponseEntity<>(userService.findUsersByUsernameLikeAndBoardIdAndEnabledAndValidated(username, boardId), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/password-change/{id}")
+    ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequest passwordChangeRequest, @PathVariable Long id) {
+        boolean match = userService.changePassword(id, passwordChangeRequest.getOldPassword(), passwordChangeRequest.getNewPassword());
+        if (!match)
+            return new ResponseEntity<>("Old password is incorrect.", HttpStatus.BAD_REQUEST);
+        else
+            return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PatchMapping(value = "/update-profile/{id}")
+    ResponseEntity<?> updateProfile(@RequestBody ProfileUpdateRequest profileUpdateRequest, @PathVariable Long id) {
+        return new ResponseEntity<>(userService.profileUpdate(id, profileUpdateRequest.getFirstName(), profileUpdateRequest.getLastName()), HttpStatus.CREATED);
     }
 }

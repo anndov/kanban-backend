@@ -18,10 +18,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.theInstance;
 import static org.mockito.Matchers.any;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.mockito.Matchers.anyLong;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -101,5 +101,10 @@ public class BoardControllerTests {
         this.mockMvc.perform(get("/rest/boards/" + board.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(board.getId().intValue())));
+    }
+
+    @Test
+    public void delete_test() throws Exception {
+        this.mockMvc.perform(delete("/rest/boards/" + 11L)).andExpect(status().isNoContent());
     }
 }

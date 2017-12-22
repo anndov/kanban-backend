@@ -83,4 +83,23 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    public boolean changePassword(Long id, String oldPassword, String newPassword) {
+        User user = userRepository.findOne(id);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        boolean passMatch = passwordEncoder.matches(oldPassword, user.getPassword());
+        if (passMatch) {
+            user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+            userRepository.save(user);
+        }
+
+        return passMatch;
+    }
+
+    public User profileUpdate(Long id, String firstName, String lastName) {
+        User user = userRepository.findOne(id);
+        user.setFirstname(firstName);
+        user.setLastname(lastName);
+        return userRepository.save(user);
+    }
+
 }

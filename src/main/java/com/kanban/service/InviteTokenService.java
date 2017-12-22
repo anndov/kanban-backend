@@ -77,7 +77,10 @@ public class InviteTokenService {
 
         else {
             Board board = inviteToken.getBoard();
-            board.setParticipants(Collections.singleton(inviteToken.getUser()));
+            Set<User> participants = new HashSet<>();
+            participants = board.getParticipants();
+            participants.add(inviteToken.getUser());
+            board.setParticipants(participants);
             inviteToken.setAccepted(true);
 
             inviteTokenRepository.save(inviteToken);
@@ -97,8 +100,12 @@ public class InviteTokenService {
         return inviteTokenRepository.countByBoard_IdAndIsAcceptedFalse(boardId);
     }
 
-    public List<InviteToken> findByBoard(Long boardId) {
-        return inviteTokenRepository.findByBoard_IdAndExpireDateGreaterThan(boardId, new Date());
+    public List<String> findByBoard(Long boardId) {
+        List<String> invitedMembers = new ArrayList<>();
+        inviteTokenRepository.findByBoard_IdAndExpireDateGreaterThan(boardId, new Date()).forEach(inviteToken -> {
+            invitedMembers.add(inviteToken.getUser().getEmail());
+        });
+        return invitedMembers;
     }
 
 }

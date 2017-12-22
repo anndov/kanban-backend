@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("rest/boardtasks")
 public class BoardTaskBpmnController {
 
-    @Autowired
+    /*@Autowired
     private BoardTaskBpmnService boardTaskBpmnService;
 
     @PostMapping
@@ -51,5 +51,5 @@ public class BoardTaskBpmnController {
     ResponseEntity<?> completeTask(@PathVariable String id) {
         boardTaskBpmnService.completeTask(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+    }*/
 }

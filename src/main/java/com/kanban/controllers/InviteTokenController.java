@@ -26,8 +26,7 @@ public class InviteTokenController {
     ResponseEntity<?> acceptInvite(@PathVariable String token) {
         boolean accepted = inviteTokenService.acceptInvite(token);
         if (accepted) {
-            System.out.println("accepted");
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.ok("Success");
         }
         else {
             return new ResponseEntity<Object>("Date is expired", HttpStatus.NO_CONTENT);
