@@ -58,7 +58,7 @@ public class InviteTokenService {
 
         String recipientAddress = user.getEmail();
         String subject = "Inivitation";
-        String confirmationUrl = "http://localhost:8080/invitation/accept/" + inviteToken.getToken();
+        String confirmationUrl = "http://193.124.64.53:8080/invitation/accept/" + inviteToken.getToken();
 
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(recipientAddress);

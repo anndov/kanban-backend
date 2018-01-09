@@ -39,7 +39,7 @@ public class SignupService {
         verificationTokenRepository.save(verificationToken);
         String recipientAddress = user.getEmail();
         String subject = "Registration Confirmation";
-        String confirmationUrl = "http://localhost:8080/registration/confirmation/" + verificationToken.getToken();
+        String confirmationUrl = "http://193.124.64.53:8080/registration/confirmation/" + verificationToken.getToken();
 
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);

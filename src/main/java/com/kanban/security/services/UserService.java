@@ -60,6 +60,8 @@ public class UserService {
                     authorityService.save(new Authority(authority.getName())) : authorityService.findByName(authority.getName()).get(0));
         });
         user.setAuthorities(authorities);
+        if(userRepository.getOne(user.getId()).getBoards() !=null)
+        user.setBoards(userRepository.getOne(user.getId()).getBoards());
         return userRepository.save(user);
     }
 

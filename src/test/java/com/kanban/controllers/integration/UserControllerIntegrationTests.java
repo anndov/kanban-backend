@@ -49,7 +49,7 @@ public class UserControllerIntegrationTests {
     public void change_test() throws Exception {
         User user = new User();
         user.setEnabled(true);
-        user.setEmail("eami.email@email.com");
+        user.setEmail("emi.email@email.com");
         user.setPassword("12345");
         user = userService.save(user);
 
