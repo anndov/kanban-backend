@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.kanban.repository.UserRepositoryTests
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.13 sec - in com.kanban.repository.UserRepositoryTests

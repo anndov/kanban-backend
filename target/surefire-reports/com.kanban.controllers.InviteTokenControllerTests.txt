@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.kanban.controllers.InviteTokenControllerTests
--------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.681 sec - in com.kanban.controllers.InviteTokenControllerTests
