@@ -11,10 +11,10 @@ import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareAssertions.as
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.*;
 import static org.camunda.bpm.extension.mockito.CamundaMockito.autoMock;
 
-@Deployment(resources = "bpmn/board.bpmn")
-public class BoardBpmnTest extends AbstractProcessEngineRuleTest {
+//@Deployment(resources = "bpmn/board.bpmn")
+public class BoardBpmnTest /*extends AbstractProcessEngineRuleTest*/ {
 
-    @Test
+   /* @Test
     public void task_test() {
         autoMock("bpmn/board.bpmn");
 
@@ -51,6 +51,6 @@ public class BoardBpmnTest extends AbstractProcessEngineRuleTest {
         complete(task());
 
         assertThat(processInstance).isEnded();
-    }
+    }*/
 
 }
